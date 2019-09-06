@@ -1,0 +1,16 @@
+#!/bin/bash
+#Vaatab kas Mysql on installitud ning annab tulemuseks kas 0 või 1
+mysql=$(dpkg-query -W -f='${Status}' mysql-server 2>/dev/null | grep -c "ok installed")
+#Kui rida annab vastuseks 0 siis ütleb, et Mysql ei ole paigaldatud ning paigaldab apache2
+if [ $mysql -eq 0 ]; then
+	echo "Mysql server ei ole paigaldatud"
+	cd /tmp
+	wget https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
+	apt-get install -y  mysql-apt-config*
+#Tõmbab alla mysql tarkvara respitooriumi, et saaks seda tarkvara installida
+	apt-get install -y  mysql-server
+#Kui rida annab vastuseks 1 siis ütleb, et Mysql on paigaldatud ning näitab Mysql staatust
+elif [ $mysql -eq 1 ]; then
+	echo "Mysql server on paigaldatud"
+	systemctl status mysql
+fi
