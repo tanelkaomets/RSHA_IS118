@@ -1,0 +1,15 @@
+#!/bin/bash
+#Vaatab kas apache2 on installitud ning annab tulemuseks kas 0 või 1
+php=$(dpkg-query -W -f='${Status}' php7.3 2>/dev/null | grep -c "ok installed")
+#Kui rida annab vastuseks 0 siis ütleb, et PHP ei ole paigaldatud ning paigaldab PHP
+if [ $php -eq 0 ]; then
+	echo "PHP ei ole paigaldatud"
+	apt-get install -y ca-certificates apt-transport-https lsb-release
+	wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+	echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php7.3.list
+	apt-get update
+	apt-get install -y php7.3 php7.3-cli php7.3-common php7.3-opcache php7.3-curl php7.3-mbstring php7.3-mysql php7.3-zip php7.3-xml
+#Kui rida annab vastuseks 1 siis ütleb, et apache2 on paigaldatud ning näitab apache2 staatust
+elif [ $php -eq 1 ]; then
+	echo "PHP on paigaldatud"
+fi
