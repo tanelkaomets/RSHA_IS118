@@ -1,0 +1,12 @@
+#!/bin/bash
+#Vaatab kas phpadmin on installitud ning annab tulemuseks kas 0 või 1
+myphp=$(dpkg-query -W -f='${status}' phpmyadmin 2>/dev/null | grep -c "ok installed")
+#kui rida annab vastuseks 0 siis ütleb, et phpadmin ei ole installitud
+if [ $myphp -eq 0 ]; then
+	echo "Myphpadmin ei ole paigaldatud"
+	apt install -y phpmyadmin php-mbstring php-gettext
+#Tõmbab alla phpadmini
+elif [ $myphp -eq 1 ]; then
+#Kui rida annab vastuseks 1 siis ütleb, et phpadmin on paigaldatud
+	echo "myphpadmin on paigaldatud"
+fi
