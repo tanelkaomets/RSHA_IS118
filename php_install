@@ -1,5 +1,5 @@
 #!/bin/bash
-#Vaatab kas apache2 on installitud ning annab tulemuseks kas 0 või 1
+#Vaatab kas PHP on installitud ning annab tulemuseks kas 0 või 1
 php=$(dpkg-query -W -f='${Status}' php7.3 2>/dev/null | grep -c "ok installed")
 #Kui rida annab vastuseks 0 siis ütleb, et PHP ei ole paigaldatud ning paigaldab PHP
 if [ $php -eq 0 ]; then
