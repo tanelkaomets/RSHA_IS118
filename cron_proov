@@ -1,0 +1,11 @@
+#!/bin/bash
+kokku=`date`;
+kuu=`date | awk -F" " '{ print $2 }'`; #Prindib date käsust 2 tulba e. kuu 
+kuup2ev=`date | awk -F" " '{ print $3 }'`; #Prindib date käsust 3 tulba e. kuupäeva
+p2ev=`date | awk -F" " '{ print $1 }'`; #Prindib date käsust 1 tulbaa e. päeva
+kellaaeg=`date | awk -F" " '{ print $4 }'`; #Prindib date käsust 4 tulba e. kellaaja
+riik=`date | awk -F" " '{ print $5 }'`; #Prindib date käsust 5 tulba e. ajavööndi
+aasta=`date | awk -F" " '{ print $6 }'`; #Prindib date käsust 6 tulba e. aasta
+number=`date | awk -F" " '{ print $4 }' | awk -F: '{ print $2 }'`; # Prindib date käsust 4 tulba e. numbri
+echo "Tänane kuupäev on $kuu $kuup2ev $aasta. Kell on $kellaaeg. See on $riik aeg." > /home/user/temp/proov_cron${number}.txt
+# Echo liidab kõiik need parameetrid ning salvestab need faili
